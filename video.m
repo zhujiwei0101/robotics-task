@@ -19,7 +19,7 @@ diff_im = medfilt2(diff_im, [3 3]);%中值滤波
 diff_im = imbinarize(diff_im,0.5);  %转换为二值图像
 % subplot(4,2,6);
 % imshow(diff_im);
-diff_im = bwareaopen(diff_im,50);%从二值图像中删除小对象 像素小于300
+diff_im = bwareaopen(diff_im,50);%从二值图像中删除小对象 像素小于50
 % subplot(4,2,7);
 % imshow(diff_im);
 bw = bwlabel(diff_im, 8); %对8连通分量标注
@@ -38,31 +38,38 @@ imshow(data)
         Px=bc(1);
         Py=bc(2);
         Pz=0;
-        a2 = 650;
-        a3 = 0;
-        d3 = 190;
-        d4 = 600;
-         K = (Px^2+Py^2+Pz^2-a2^2-a3^2-d3^2-d4^2)/(2*a2);
-        theta1 = (atan2(Py,Px)-atan2(d3,sqrt(Px^2+Py^2-d3^2)));
+        nx=1;ny=0;nz=0;
+        ax=0;ay=0;az=1;
+        a2 = 431.8;
+        a3 = 20.32;
+        d2 = 149.09;
+        d4 = 433.07;
+         K = (Px^2+Py^2+Pz^2-a2^2-a3^2-d2^2-d4^2)/(2*a2);
+        theta1 = (atan2(Py,Px)-atan2(d2,sqrt(Px^2+Py^2-d2^2)));
                 c1 = cos(theta1);
                 s1 = sin(theta1);
                 theta3 = (atan2(a3,d4)-atan2(real(K),real(sqrt(a3^2+d4^2-K^2))));
                 c3 = cos(theta3);
                 s3 = sin(theta3);
-                t23 = atan2((-a3-a2*c3)*Pz-(c1*Px+s1*Py)*(d4-a2*s3),(a2*s3-d4)*Pz+(a3+a2*c3)*(c1*Px+s1*Py));
+                t23 = atan2((-a3-a2*c3)*Pz+(c1*Px+s1*Py)*(a2*s3-d4),(a2*s3-d4)*Pz+(a3+a2*c3)*(c1*Px+s1*Py));
                 theta2 = (t23 - theta3);
                 c2 = cos(theta2);
                 s2 = sin(theta2);
                 s23 = ((-a3-a2*c3)*Pz+(c1*Px+s1*Py)*(a2*s3-d4))/(Pz^2+(c1*Px+s1*Py)^2);
                 c23 = ((a2*s3-d4)*Pz+(a3+a2*c3)*(c1*Px+s1*Py))/(Pz^2+(c1*Px+s1*Py)^2);
-                theta4 = atan2(s1+c1,c1*c23-s1*c23 + s23);
+%                 theta4 = atan2(s1+c1,c1*c23-s1*c23 + s23);
+                theta4=atan2(-ax*s1+ay*c1,-ax*c1*c23-ay*s1*c23+az*s23);
                 c4 = cos(theta4);
                 s4 = sin (theta4);
-                s5 = -((c1*c23*c4+s1*s4)+(s1*c23*c4-c1*s4)-(s23*c4));
-                c5 = (-c1*s23)+(-s1*s23)+(-c23);
+%                 s5 = -((c1*c23*c4+s1*s4)+(s1*c23*c4-c1*s4)-(s23*c4));
+                s5=-(ax*(c1*c23*c4+s1*s4)+ay*(s1*c23*c4-c1*s4)-az*(s23*c4));
+%                 c5 = (-c1*s23)+(-s1*s23)+(-c23);
+                c5=ax*(-c1*s23)+ay*(-s1*s23)+az*(-c23);
                 theta5 = atan2(s5,c5);
-                s6 = (c1*c23*s4-s1*c4)-(s1*c23*s4+c1*c4)+(s23*s4);
-                c6 = ((c1*c23*c4+s1*s4)*c5-c1*s23*s5)+((s1*c23*c4-c1*s4)*c5-s1*s23*s5)-(s23*c4*c5+c23*s5);
+%                 s6 = (c1*c23*s4-s1*c4)-(s1*c23*s4+c1*c4)+(s23*s4);
+                s6=-nx*(c1*c23*s4-s1*c4)-ny*(s1*c23*s4+c1*c4)+nz*(s23*s4);
+%                 c6 = ((c1*c23*c4+s1*s4)*c5-c1*s23*s5)+((s1*c23*c4-c1*s4)*c5-s1*s23*s5)-(s23*c4*c5+c23*s5);
+                c6 = nx*((c1*c23*c4+s1*s4)*c5-c1*s23*s5)+ny*((s1*c23*c4-c1*s4)*c5-s1*s23*s5)-nz*(s23*c4*c5+c23*s5);
                 theta6 = atan2(s6,c6);
         q=[theta1 theta2 theta3 theta4 theta5 theta6];
         set(edit7,'string',num2str(q(1)/pi*180));

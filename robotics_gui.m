@@ -105,9 +105,9 @@ axes2handles=handles.axes2;
 axes3handles=handles.axes3;
 global robot rob;
 L1 = Link('d', 0, 'a', 0, 'alpha', 0);L1.mdh=1;
-L2 = Link('d', 15, 'a', 0, 'alpha', -pi/2);L2.mdh=1;
-L3 = Link('d', 0, 'a', 43, 'alpha', 0);L3.mdh=1;
-L4 = Link('d', 43, 'a', 20, 'alpha', -pi/2);L4.mdh=1;
+L2 = Link('d', 149.09, 'a', 0, 'alpha', -pi/2);L2.mdh=1;
+L3 = Link('d', 0, 'a', 431.8, 'alpha', 0);L3.mdh=1;
+L4 = Link('d', 433.07, 'a', 20.32, 'alpha', -pi/2);L4.mdh=1;
 L5 = Link('d', 0, 'a', 0, 'alpha', pi/2);L5.mdh=1;
 L6 = Link('d', 0, 'a', 0, 'alpha', -pi/2);L6.mdh=1;
 robot=SerialLink([L1,L2,L3,L4,L5,L6]);
@@ -133,9 +133,9 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 LL1 = Link('d', 0, 'a', 0, 'alpha', 0);LL1.mdh=1;
-LL2 = Link('d', 15, 'a', 0, 'alpha', -pi/2);LL2.mdh=1;
+LL2 = Link('d', 149.09, 'a', 431.8, 'alpha', -pi/2);LL2.mdh=1;
 LL3 = Link('d', 0, 'a', 43, 'alpha', 0);LL3.mdh=1;
-LL4 = Link('d', 43, 'a', 20, 'alpha', -pi/2);LL4.mdh=1;
+LL4 = Link('d', 433.07, 'a', 20.32, 'alpha', -pi/2);LL4.mdh=1;
 LL5 = Link('d', 0, 'a', 0, 'alpha', pi/2);LL5.mdh=1;
 LL6 = Link('d', 0, 'a', 0, 'alpha', -pi/2);LL6.mdh=1;
 global rob nowFrames;
