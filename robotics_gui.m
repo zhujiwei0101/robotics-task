@@ -67,6 +67,7 @@ global edit7 edit8 edit9 edit10 edit11 edit12;
 global pre cur;
 global obj nFrames;
 global nowFrames;
+global t1;
 obj=VideoReader('video.mp4');
 nFrames=obj.NumberOfFrames;
 slider1=handles.slider1;
@@ -112,7 +113,7 @@ L6 = Link('d', 0, 'a', 0, 'alpha', -pi/2);L6.mdh=1;
 robot=SerialLink([L1,L2,L3,L4,L5,L6]);
 pre=[0 0 0 0 0 0];
 robot.name='robot';
-
+t1=timer('TimerFcn','video','Period',0.05,'ExecutionMode','fixedSpacing','TasksToExecute',inf);        
 
 global t2; 
 t2=timer('TimerFcn','kinematics','Period',0.2,'ExecutionMode','fixedSpacing','TasksToExecute',inf);        
@@ -142,9 +143,14 @@ rob=SerialLink([LL1,LL2,LL3,LL4,LL5,LL6]);
 rob.name='rob';
 nowFrames=1;
 global t1; 
-t1=timer('TimerFcn','video','Period',0.05,'ExecutionMode','fixedSpacing','TasksToExecute',inf);        
 start(t1);
-
+% --- Executes on button press in pushbutton2.
+function pushbutton2_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global t1;
+stop(t1);
 
 % --- Executes on slider movement.
 function slider1_Callback(hObject, eventdata, handles)
@@ -421,12 +427,6 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
-
-% --- Executes on button press in pushbutton2.
-function pushbutton2_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 
 
 
